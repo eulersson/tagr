@@ -1,4 +1,12 @@
-// Mixins
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+ * * * * * * * * * * * * * * *  MIXINS * * * * * * * * * * * * * * * * * * * *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+border-radius(n)
+  -webkit-border-radius n
+  -moz-border-radius n
+  border-radius n
+ 
 user-select(val)
   -webkit-user-select val
   -khtml-user-select val
@@ -6,31 +14,32 @@ user-select(val)
   -ms-user-select val
   user-select val
 
-// Styles
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+ * * * * * * * * * * * * * * * * STYLES  * * * * * * * * * * * * * * * * * * *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 html, body
   overflow hidden
   background black
   color white
   
-
 #app
-  // Header on application view
   #header
-    width 100%
-    padding-top 60px
     padding-bottom 10px
+    padding-top 60px
     text-align center
+    width 100%
     
     &.animable
       transition height cubic-bezier(0.250, 0.460, 0.450, 0.940) 600ms
 
     &.small
-      height 340px
       border-bottom solid 3px white
+      height 340px
         
     &.full
-      height 100%
       border-bottom none
+      height 100%
 
     p 
       cursor default
@@ -38,24 +47,22 @@ html, body
       padding 0
       
     #title
+      border-color white
+      border-image-slice 33% 33%
+      border-image-source url('../img/dots.svg')
+      border-image-repeat round
+      border-style dotted
+      border-width 13px 0 13px 0
       color white
       font-family 'Lobster'
       font-size 100px
-      border-style dotted
-      border-color white
-      border-image-source url('../img/dots.svg')
-      border-image-slice 33% 33%
-      border-width 13px 0 13px 0
-      border-image-repeat round
     
-
-  
   #products
     width 100%
     
     md-divider
-      margin-top 0
       margin-bottom 0
+      margin-top 0
 
     md-list
       padding-top 0
@@ -64,14 +71,23 @@ html, body
     md-list-item > ._md-list-item-inner > p,
     md-list-item ._md-list-item-inner > p,
     md-list-item ._md-list-item-inner > ._md-list-item-inner > p
-      -webkit-user-select none
-      -moz-user-select none
-      -ms-user-select none
       user-select none
       
     md-list-item > button
       transform translateY(-10px)
 
+  #footer
+    border-top solid 3px white
+    min-height 100px
+    transform translateY(0px)
+    width 100%
+    
+    &.ng-hide-add,
+    &.ng-hide-remove
+      transition all cubic-bezier(0.250, 0.460, 0.450, 0.940) 600ms
+      
+    &.ng-hide
+      transform translateY(100px)
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
@@ -79,34 +95,34 @@ html, body
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
  
 // Expandable footer button 
-#collapse-button
-  width 100%
-  position fixed
+#collapse-footer-button
   bottom 0px
   cursor pointer
+  position fixed
   transition all cubic-bezier(0.250, 0.460, 0.450, 0.940) 600ms
+  width 100%
   
   &.expanded
-    transform translateY(-100px)
     opacity 1
+    transform translateY(-100px)
     
   &.collapsed
-    transform translateY(0px)
     opacity 0.5
+    transform translateY(0px)
   
   md-icon
     font-size 40px
     height 40px
-    width 40px
     outline 0
+    width 40px
 
 .logo-avatar
-  border-radius 50%
-  transition opacity 1s ease-in-out, border ease-in-out 500ms
   background-size 50px 50px
   background-position center
-  opacity 1.0
   border none
+  border-radius 50%
+  transition opacity 1s ease-in-out, border ease-in-out 500ms
+  opacity 1.0
   
 .logo-avatar:hover
   opacity 0.7
@@ -114,8 +130,6 @@ html, body
 .unselectable
   user-select none 
   
-
-
 .fadeable
   opacity 1.0
   
@@ -126,45 +140,3 @@ html, body
   &.ng-hide
     opacity 0.0
 
-// Footer with options for application view
-#footer
-  width 100%
-  border-top solid 3px white
-  min-height 100px
-  transform translateY(0px)
-  
-  &.ng-hide-add,
-  &.ng-hide-remove
-    transition all cubic-bezier(0.250, 0.460, 0.450, 0.940) 600ms
-    
-  &.ng-hide
-    transform translateY(100px)
-    
-
-
-
-
-
-
-#aaa
-  width 100%
-  background red
-  
-  &.animable
-    transition height cubic-bezier(0.250, 0.460, 0.450, 0.940) 600ms
-
-  &.small
-    height 240px
-      
-  &.full
-    height 100%
-    
-
-#bbb
-  width 100%
-  background blue
-  
-
-#ccc
-  width 100%
-  background green

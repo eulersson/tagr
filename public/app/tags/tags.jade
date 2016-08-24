@@ -1,35 +1,34 @@
 doctype html
+
 #app(
-  style={width: '100%', height: '100%'}
   layout='column'
   layout-align='start center'
   layout-fill
-  md-colors="{background: 'euler-background-900'}")
+  md-colors="{background: 'euler-background-900'}"
+  style={width: '100%', height: '100%'})
 
   #header.animable(
     layout='row'
+    ng-class='getHeaderClass()'
     ng-style='getHeaderStyle()'
-    ng-class="getHeaderClass()"
     flex='noshrink')
 
     div(flex)
 
     div(layout='column' layout-align='center center')
       p#title.unselectable Tagr
-      div(layout='row' layout-align='center center' style={width: '100%'})
 
+      div(layout='row' layout-align='center center' style={width: '100%'})
         md-button.md-raised.md-primary(
           ng-click='addProduct()'
           style={width: '50%', margin: '10px 5px 0px 0px'})
           md-icon add
-
         md-button.md-raised.md-accent(
           ng-click='generatePrint()'
           style={width: '50%', margin: '10px 0px 0px 5px'})
           md-icon border_all
 
       div(style={width: '100%', 'margin-top': '10px'})
-
         md-button(style={margin: '0px', width: '100%'} ng-click='showHelpDialog($event)')
           md-icon live_help
 
@@ -47,7 +46,6 @@ doctype html
     div(layout="column" layout-align="start center" style={padding: '20px'})
       form(name="productsForm")
         md-list#products(layout="column" layout-align="start end" ng-cloak)
-
           md-list-item.repeated-item(ng-form="productsItemForm" ng-repeat="product in products")
             .logo-avatar(
               ng-style="getAvatarImg(product.logo)"
@@ -89,7 +87,7 @@ doctype html
     ng-style='getFooterStyle()'
     flex='none')
 
-#collapse-button(
+#collapse-footer-button(
   ng-class="footerCollapsed === true ? 'collapsed' : 'expanded'"
   layout='column'
   layout-align='center center'
