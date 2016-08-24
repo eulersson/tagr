@@ -1,3 +1,9 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+ * * * * * * * * * * * * * * *  MIXINS * * * * * * * * * * * * * * * * * * * *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+ * * * * * * * * * * * * * * * * STYLES  * * * * * * * * * * * * * * * * * * *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 html,
 body {
   overflow: hidden;
@@ -5,21 +11,21 @@ body {
   color: #fff;
 }
 #app #header {
-  width: 100%;
-  padding-top: 60px;
   padding-bottom: 10px;
+  padding-top: 60px;
   text-align: center;
+  width: 100%;
 }
 #app #header.animable {
   transition: height cubic-bezier(0.25, 0.46, 0.45, 0.94) 600ms;
 }
 #app #header.small {
-  height: 340px;
   border-bottom: solid 3px #fff;
+  height: 340px;
 }
 #app #header.full {
-  height: 100%;
   border-bottom: none;
+  height: 100%;
 }
 #app #header p {
   cursor: default;
@@ -27,22 +33,22 @@ body {
   padding: 0;
 }
 #app #header #title {
+  border-color: #fff;
+  border-image-slice: 33% 33%;
+  border-image-source: url("../img/dots.svg");
+  border-image-repeat: round;
+  border-style: dotted;
+  border-width: 13px 0 13px 0;
   color: #fff;
   font-family: 'Lobster';
   font-size: 100px;
-  border-style: dotted;
-  border-color: #fff;
-  border-image-source: url("../img/dots.svg");
-  border-image-slice: 33% 33%;
-  border-width: 13px 0 13px 0;
-  border-image-repeat: round;
 }
 #app #products {
   width: 100%;
 }
 #app #products md-divider {
-  margin-top: 0;
   margin-bottom: 0;
+  margin-top: 0;
 }
 #app #products md-list {
   padding-top: 0;
@@ -52,9 +58,6 @@ body {
 #app #products md-list-item ._md-list-item-inner > p,
 #app #products md-list-item ._md-list-item-inner > ._md-list-item-inner > p {
   -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -63,37 +66,52 @@ body {
 #app #products md-list-item > button {
   transform: translateY(-10px);
 }
+#app #footer {
+  border-top: solid 3px #fff;
+  height: 100px;
+  transform: translateY(0px);
+  width: 100%;
+  transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 600ms;
+}
+#app #footer.collapsed {
+  transform: translateY(100px);
+  margin-top: -100px;
+}
+#app #footer.raised {
+  transform: translateY(0px);
+  margin-top: 0px;
+}
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
  * * * * * * * * * * * * REUSABLE DIRECTIVES * * * * * * * * * * * * * * * * *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-#collapse-button {
-  width: 100%;
-  position: fixed;
-  bottom: 0px;
+#collapse-footer-button {
+  top: -70px;
   cursor: pointer;
+  position: relative;
   transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 600ms;
+  width: 100%;
 }
-#collapse-button.expanded {
-  transform: translateY(-100px);
+#collapse-footer-button.expanded {
   opacity: 1;
 }
-#collapse-button.collapsed {
-  transform: translateY(0px);
+#collapse-footer-button.collapsed {
   opacity: 0.5;
 }
-#collapse-button md-icon {
+#collapse-footer-button md-icon {
   font-size: 40px;
   height: 40px;
-  width: 40px;
   outline: 0;
+  width: 40px;
 }
 .logo-avatar {
-  border-radius: 50%;
-  transition: opacity 1s ease-in-out, border ease-in-out 500ms;
   background-size: 50px 50px;
   background-position: center;
-  opacity: 1;
   border: none;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  transition: opacity 1s ease-in-out, border ease-in-out 500ms;
+  opacity: 1;
 }
 .logo-avatar:hover {
   opacity: 0.7;
@@ -114,38 +132,4 @@ body {
 }
 .fadeable.ng-hide {
   opacity: 0;
-}
-#footer {
-  width: 100%;
-  border-top: solid 3px #fff;
-  min-height: 100px;
-  transform: translateY(0px);
-}
-#footer.ng-hide-add,
-#footer.ng-hide-remove {
-  transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 600ms;
-}
-#footer.ng-hide {
-  transform: translateY(100px);
-}
-#aaa {
-  width: 100%;
-  background: #f00;
-}
-#aaa.animable {
-  transition: height cubic-bezier(0.25, 0.46, 0.45, 0.94) 600ms;
-}
-#aaa.small {
-  height: 240px;
-}
-#aaa.full {
-  height: 100%;
-}
-#bbb {
-  width: 100%;
-  background: #00f;
-}
-#ccc {
-  width: 100%;
-  background: #008000;
 }

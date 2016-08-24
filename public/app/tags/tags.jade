@@ -53,7 +53,7 @@ doctype html
 
             md-input-container.md-block.md-accent(layout="row" layout-align="center center")
               label Brand
-              input(ng-blur="getLogoOnBrandBlur($event, product)" ng-model="product.brand")
+              input(ng-blur = "getLogoOnBrandBlur($event, product)" ng-model="product.brand" ng-model-options="{ updateOn: 'blur'}")
 
             md-input-container.md-block.md-accent
               label Product
@@ -82,18 +82,18 @@ doctype html
 
   #footer(
     layout='row'
-    ng-hide='footerCollapsed'
+    ng-class="footerCollapsed === true ? 'collapsed' : 'raised'"
     layout-align='start center'
     ng-style='getFooterStyle()'
     flex='none')
 
-#collapse-footer-button(
-  ng-class="footerCollapsed === true ? 'collapsed' : 'expanded'"
-  layout='column'
-  layout-align='center center'
-  flex='none')
+    #collapse-footer-button(
+      ng-class="footerCollapsed === true ? 'collapsed' : 'expanded'"
+      layout='column'
+      layout-align='center center'
+      flex='none')
 
-  md-icon.fadeable(
-    ng-click='footerCollapsed = !footerCollapsed'
-    ng-show='isFooterAvailable()')
-    {{ footerCollapsed ? 'expand_less' : 'expand_more' }}
+      md-icon.fadeable(
+        ng-click='footerCollapsed = !footerCollapsed'
+        ng-show='isFooterAvailable()')
+        {{ footerCollapsed ? 'expand_less' : 'expand_more' }}

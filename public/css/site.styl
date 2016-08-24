@@ -78,16 +78,19 @@ html, body
 
   #footer
     border-top solid 3px white
-    min-height 100px
+    height 100px
     transform translateY(0px)
-    width 100%
     
-    &.ng-hide-add,
-    &.ng-hide-remove
-      transition all cubic-bezier(0.250, 0.460, 0.450, 0.940) 600ms
-      
-    &.ng-hide
+    width 100%
+    transition all cubic-bezier(0.250, 0.460, 0.450, 0.940) 600ms
+    
+    &.collapsed
       transform translateY(100px)
+      margin-top -100px
+      
+    &.raised
+      transform translateY(0px)
+      margin-top 0px
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
@@ -96,19 +99,17 @@ html, body
  
 // Expandable footer button 
 #collapse-footer-button
-  bottom 0px
+  top -70px
   cursor pointer
-  position fixed
+  position relative
   transition all cubic-bezier(0.250, 0.460, 0.450, 0.940) 600ms
   width 100%
   
   &.expanded
     opacity 1
-    transform translateY(-100px)
     
   &.collapsed
     opacity 0.5
-    transform translateY(0px)
   
   md-icon
     font-size 40px

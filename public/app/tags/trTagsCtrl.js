@@ -19,6 +19,7 @@ angular.module('app')
 
     // When blur event happens on the brand field
     $scope.getLogoOnBrandBlur = function(ev, product) {
+      console.dir(ev);
       console.log("getLogoOnBrandBlur called");
       product.logo = 'http://i.imgur.com/EOyYrK6.jpg';
     }
