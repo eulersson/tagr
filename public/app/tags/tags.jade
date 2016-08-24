@@ -1,0 +1,105 @@
+doctype html
+#app(
+  style={width: '100%', height: '100%'}
+  layout='column'
+  layout-align='start center'
+  layout-fill
+  md-colors="{background: 'euler-background-900'}")
+
+  #header.animable(
+    layout='row'
+    ng-style='getHeaderStyle()'
+    ng-class='getHeaderClass()'
+    flex='noshrink')
+
+    div(flex)
+
+    div(layout='column' layout-align='center center')
+      p#title.unselectable Tagr
+      div(layout='row' layout-align='center center' style={width: '100%'})
+
+        md-button.md-raised.md-primary(
+          ng-click='addProduct()'
+          style={width: '50%', margin: '10px 5px 0px 0px'})
+          md-icon add
+
+        md-button.md-raised.md-accent(
+          ng-click='generatePrint()'
+          style={width: '50%', margin: '10px 0px 0px 5px'})
+          md-icon border_all
+
+      div(style={width: '100%', 'margin-top': '10px'})
+
+        md-button(style={margin: '0px', width: '100%'} ng-click='showHelpDialog($event)')
+          md-icon live_help
+
+    div(flex)
+
+  md-content.fadeable(
+    ng-show='products.length'
+    style={width: '100%'}
+    layout="row"
+    md-colors="{background: 'euler-background-900'}"
+    flex='grow')
+
+    div(flex)
+
+    div(layout="column" layout-align="start center" style={padding: '20px'})
+      form(name="productsForm")
+        md-list#products(layout="column" layout-align="start end" ng-cloak)
+
+          md-list-item.repeated-item(ng-form="productsItemForm" ng-repeat="product in products")
+            .logo-avatar(
+              ng-style="getAvatarImg(product.logo)"
+              style={width: '50px', height: '50px', 'margin-right': '20px', transform: 'translateY(-20px)'})
+
+            md-input-container.md-block.md-accent(layout="row" layout-align="center center")
+              label Brand
+              input(ng-blur="getLogoOnBrandBlur($event, product)" ng-model="product.brand")
+
+            md-input-container.md-block.md-accent
+              label Product
+              input(name="product" ng-model="product.name" required)
+              div(ng-messages="productsItemForm.product.$error")
+                div(ng-message="required") Required field.
+
+            md-input-container.md-block.md-accent
+              label Before
+              input(name="before" ng-model="product.before" ng-pattern="/^\d+[,\.]\d+$/" required)
+              div(ng-messages="productsItemForm.before.$error")
+                div(ng-message="required") Required field.
+                div(ng-message="pattern") Example: 29,99 or 29.99
+
+            md-input-container.md-block.md-accent
+              label After
+              input(name="after" ng-model="product.after" ng-pattern="/^\d+[,\.]\d+$/" required)
+              div(ng-messages="productsItemForm.after.$error")
+                div(ng-message="required") Required field.
+                div(ng-message="pattern") Example: 29,99 or 29.99
+
+            md-button.md-raised.md-warn(ng-click="removeProduct(product)")
+              md-icon delete
+
+    div(flex)
+
+
+
+  div.fadeable(style={'min-height': '100px'} flex)
+
+#footer(
+  ng-show='isFooterShown()' 
+  layout='row' 
+  layout-align='start center' 
+  ng-style='getFooterStyle()'
+  flex='none')
+
+#collapse-button(
+  ng-class="footerCollapsed === true ? 'collapsed' : 'expanded'"
+  layout='column'
+  layout-align='center center'
+  flex='none')
+
+  md-icon.fadeable(
+    ng-click='footerCollapsed = !footerCollapsed'
+    ng-show='isFooterAvailable()')
+    {{ footerCollapsed ? 'expand_less' : 'expand_more' }}

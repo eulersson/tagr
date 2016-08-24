@@ -1,0 +1,37 @@
+{
+  "name": "tagr",
+  "version": "0.1.0",
+  "description": "Automation tool for price tags",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "postinstall": "bower install"
+  },
+  "engines": {
+    "node": "4.4.x",
+    "npm": "2.15.x"
+  },
+  "keywords": [
+    "price",
+    "tag",
+    "commerce",
+    "store",
+    "retail",
+    "automation"
+  ],
+  "author": "Ramon Blanquer <blanquer.ramon@gmail.com> (http://www.ramonblanquer.com)",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "bower": "^1.7.9",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.0",
+    "express-session": "^1.14.0",
+    "jade": "^1.11.0",
+    "mongoose": "^4.5.9",
+    "morgan": "^1.7.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "stylus": "^0.54.5"
+  }
+}

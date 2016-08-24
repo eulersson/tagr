@@ -1,0 +1,26 @@
+{
+  "name": "tagr",
+  "description": "Automation tool for price tags",
+  "main": "",
+  "authors": [
+    "Ramon Blanquer <blanquer.ramon@gmail.com> (http://www.ramonblanquer.com)"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "price",
+    "tag",
+    "commerce",
+    "store",
+    "retail",
+    "automation"
+  ],
+  "homepage": "",
+  "private": true,
+  "dependencies": {
+    "jquery": "^3.1.0",
+    "angular": "^1.5.8",
+    "angular-resource": "^1.5.8",
+    "angular-route": "^1.5.8",
+    "angular-material": "^1.1.0"
+  }
+}

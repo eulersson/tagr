@@ -1,0 +1,175 @@
+// Mixins
+user-select(val)
+  -webkit-user-select val
+  -khtml-user-select val
+  -moz-user-select val
+  -ms-user-select val
+  user-select val
+
+// Styles
+html, body
+  overflow hidden
+  background black
+  color white
+  
+
+#app
+  // Header on application view
+  #header
+    width 100%
+    padding-top 60px
+    padding-bottom 10px
+    text-align center
+    
+    &.animable
+      transition height cubic-bezier(0.250, 0.460, 0.450, 0.940) 600ms
+
+    &.small
+      height 340px
+      border-bottom solid 3px white
+        
+    &.full
+      height 100%
+      border-bottom none
+
+    p 
+      cursor default
+      margin 0
+      padding 0
+      
+    #title
+      color white
+      font-family 'Lobster'
+      font-size 100px
+      border-style dotted
+      border-color white
+      border-image-source url('../img/dots.svg')
+      border-image-slice 33% 33%
+      border-width 13px 0 13px 0
+      border-image-repeat round
+    
+
+  
+  #products
+    width 100%
+    
+    md-divider
+      margin-top 0
+      margin-bottom 0
+
+    md-list
+      padding-top 0
+      
+    md-list-item > p,
+    md-list-item > ._md-list-item-inner > p,
+    md-list-item ._md-list-item-inner > p,
+    md-list-item ._md-list-item-inner > ._md-list-item-inner > p
+      -webkit-user-select none
+      -moz-user-select none
+      -ms-user-select none
+      user-select none
+      
+    md-list-item > button
+      transform translateY(-10px)
+
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+ * * * * * * * * * * * * REUSABLE DIRECTIVES * * * * * * * * * * * * * * * * *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+ 
+// Expandable footer button 
+#collapse-button
+  width 100%
+  position fixed
+  bottom 0px
+  cursor pointer
+  transition all cubic-bezier(0.250, 0.460, 0.450, 0.940) 600ms
+  
+  &.expanded
+    transform translateY(-100px)
+    opacity 1
+    
+  &.collapsed
+    transform translateY(0px)
+    opacity 0.5
+  
+  md-icon
+    font-size 40px
+    height 40px
+    width 40px
+    outline 0
+
+.logo-avatar
+  border-radius 50%
+  transition opacity 1s ease-in-out, border ease-in-out 500ms
+  background-size 50px 50px
+  background-position center
+  opacity 1.0
+  border none
+  
+.logo-avatar:hover
+  opacity 0.7
+  
+.unselectable
+  user-select none 
+  
+
+
+.fadeable
+  opacity 1.0
+  
+  &.ng-hide-add,
+  &.ng-hide-remove
+    transition all cubic-bezier(0.250, 0.460, 0.450, 0.940) 500ms
+  
+  &.ng-hide
+    opacity 0.0
+
+// Footer with options for application view
+#footer
+  position fixed
+  bottom 0
+  width 100%
+  height 100px
+  min-height 100px
+  border-top solid 3px white
+  transform translateY(0px)
+  margin-top 0
+  
+  &.ng-hide-add,
+  &.ng-hide-remove
+    transition all cubic-bezier(0.250, 0.460, 0.450, 0.940) 600ms
+    
+  &.ng-hide
+    transform translateY(100px)
+    margin-top -100px
+    
+
+
+
+
+
+
+#aaa
+  width 100%
+  background red
+  
+  &.animable
+    transition height cubic-bezier(0.250, 0.460, 0.450, 0.940) 600ms
+
+  &.small
+    height 240px
+      
+  &.full
+    height 100%
+    
+
+#bbb
+  width 100%
+  background blue
+  
+
+#ccc
+  width 100%
+  background green
