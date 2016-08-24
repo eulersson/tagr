@@ -3,6 +3,7 @@
 
 angular.module('app')
   .controller('trTagsCtrl', function($location, $mdColors, $scope) {
+    $scope.showMiddle = true;
 
     // Scoped variables
     $scope.products = [];
@@ -45,14 +46,6 @@ angular.module('app')
     // Displays or hides the little arrow that expands the footer menu
     $scope.isFooterAvailable = function() {
       if ($scope.products.length) { return true; } else { return false; }
-    }
-
-    $scope.isFooterShown = function() {
-      if (!$scope.footerCollapsed && $scope.products.length) {
-        return true;
-      } else {
-        return false;
-      }
     }
 
     // If there are entries on the list the header should be collapsed

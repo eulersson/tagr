@@ -1,4 +1,4 @@
-div(layout="column" layout-align="start center" layout-fill)
+div(style={width: '100%', height: '100%'} layout="column" layout-align="start center" layout-fill)
   #aaa.animable(flex="noshrink" ng-class="showMiddle === true ? 'small' : 'full'" ng-click="showMiddle = !showMiddle")
   #bbb.fadeable(flex="grow" ng-show="showMiddle")
   #ccc(flex="none")

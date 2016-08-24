@@ -9,7 +9,7 @@ doctype html
   #header.animable(
     layout='row'
     ng-style='getHeaderStyle()'
-    ng-class='getHeaderClass()'
+    ng-class="getHeaderClass()"
     flex='noshrink')
 
     div(flex)
@@ -36,10 +36,10 @@ doctype html
     div(flex)
 
   md-content.fadeable(
-    ng-show='products.length'
-    style={width: '100%'}
-    layout="row"
+    ng-show='showMiddle'
+    style={width: '100%', 'overflow-y': 'scroll'}
     md-colors="{background: 'euler-background-900'}"
+    layout="row"
     flex='grow')
 
     div(flex)
@@ -82,16 +82,12 @@ doctype html
 
     div(flex)
 
-
-
-  div.fadeable(style={'min-height': '100px'} flex)
-
-#footer(
-  ng-show='isFooterShown()' 
-  layout='row' 
-  layout-align='start center' 
-  ng-style='getFooterStyle()'
-  flex='none')
+  #footer(
+    layout='row'
+    ng-hide='footerCollapsed'
+    layout-align='start center'
+    ng-style='getFooterStyle()'
+    flex='none')
 
 #collapse-button(
   ng-class="footerCollapsed === true ? 'collapsed' : 'expanded'"
