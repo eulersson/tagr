@@ -5,7 +5,7 @@ var express       = require('express'),
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
-var app = express();
+var app = module.exports.app = exports.app = express();
 
 var config = require('./server/config/config')[env];
 
