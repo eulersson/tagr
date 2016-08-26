@@ -2,6 +2,7 @@
 "use strict";
 
 angular.module('app', ['ngAnimate', 'ngMaterial', 'ngMessages', 'ngRoute'])
+  // Module configuration
   .config(function($routeProvider, $locationProvider, $mdThemingProvider) {
     $locationProvider.html5Mode(true);
     $routeProvider
@@ -12,15 +13,13 @@ angular.module('app', ['ngAnimate', 'ngMaterial', 'ngMessages', 'ngRoute'])
       })
       .when('/dashboard', {
         templateUrl: '/partials/dashboard/dashboard',
-        controller: 'trDashboardCtrl'
-      })
-      .when('/help', {
-        templateUrl: 'partials/help/help',
-        controller: 'trHelpCtrl'
+        controller: 'trDashboardCtrl',
+        controllerAs: 'dashboard'
       })
       .when('/print', {
         templateUrl: 'partials/print/print',
-        controller: 'trPrintCtrl'
+        controller: 'trPrintCtrl',
+        controllerAs: 'print'
       });
 
     $mdThemingProvider
@@ -33,21 +32,75 @@ angular.module('app', ['ngAnimate', 'ngMaterial', 'ngMessages', 'ngRoute'])
 
     $mdThemingProvider.setDefaultTheme('euler');
   })
+  
+  // Root controller for the module
   .controller('trMainCtrl', function($scope, $http, trAuthService, trIdentityService) {
-    $scope.message = "This is Main Controller!";
-    $scope.thepass = "lacassa";
     $scope.identity = trIdentityService;
 
     $scope.signIn = function(username, password) {
-
-      console.log("OI! " + username + ':' + password);
+      console.log("Signing in! " + username + ':' + password);
       trAuthService.authenticateUser(username, password)
         .then(function(success) {
           console.dir(success);
-          if (success) { console.log("SO COOL!"); }
+          if (success) { console.log("COOL!"); }
           else { console.log("BAD!"); }
         });
     }
-})
+  })
+
+  // jQuery animations on classed objects
+  .animation('.repeated-item', function() {
+    return {
+      enter : function(element, done) {
+        element.css('opacity',0);
+        jQuery(element).animate({
+          opacity: 1
+        }, done);
+
+        // optional onDone or onCancel callback
+        // function to handle any post-animation
+        // cleanup operations
+        return function(isCancelled) {
+          if(isCancelled) {
+            jQuery(element).stop();
+          }
+        }
+      },
+      leave : function(element, done) {
+        element.css('opacity', 1);
+        jQuery(element).animate({
+          opacity: 0
+        }, done);
+
+        // optional onDone or onCancel callback
+        // function to handle any post-animation
+        // cleanup operations
+        return function(isCancelled) {
+          if(isCancelled) {
+            jQuery(element).stop();
+          }
+        }
+      },
+      move : function(element, done) {
+        element.css('opacity', 0);
+        jQuery(element).animate({
+          opacity: 1
+        }, done);
+
+        // optional onDone or onCancel callback
+        // function to handle any post-animation
+        // cleanup operations
+        return function(isCancelled) {
+          if(isCancelled) {
+            jQuery(element).stop();
+          }
+        }
+      },
+
+      // you can also capture these animation events
+      addClass : function(element, className, done) {},
+      removeClass : function(element, className, done) {}
+    }
+  });
   
 })();

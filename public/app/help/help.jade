@@ -1,3 +1,18 @@
-h1 How are you?
-h2 {{ message }}
-md-button Hi
+doctype html
+
+md-dialog(aria-label="Help")
+  form
+    md-toolbar
+      .md-toolbar-tools
+        h2 Help / Usage
+        span(flex)
+        md-button.md-icon-button(ng-click="help.close()")
+          md-icon close
+    md-dialog-content(md-colors="{background: 'euler-background-50'}")
+      .md-dialog-content
+        h2 Add items to the list
+        p Append products to the list by pressing the #[md-icon(style={color: 'black'}) add] icon.
+        p {{ help.message }}
+    md-dialog-actions(md-colors="{background: 'euler-background-50'}" layout="row")
+      span(flex)
+      md-button.md-accent.md-raised(ng-click="help.close()") Close

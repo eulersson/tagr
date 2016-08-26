@@ -2,38 +2,23 @@
 "use strict";
 
 angular.module('app')
-  .controller('trTagsCtrl', function($http, $location, $mdColors, trProductsService) {
-    this.showMiddle = true;
+  .controller('trTagsCtrl', function($http, $location, $mdColors, $mdDialog, trProductsService) {
 
-    // Scoped variables
-    this.products = [];
+    // Controller attributes
     this.footerCollapsed = false;
     this.priceRegex = "^\\d+[,\\.]\\d+$";
+    this.products = trProductsService.products;
+    this.showMiddle = true;
 
-    // Removes a product from the item list
-    this.removeProduct = function(product) {
-      console.log("removing " + product.name);
-      var index = this.products.indexOf(product);
-      this.products.splice(index, 1);
-    }
+    var focusedBrand;
 
-
-    // When blur event happens on the brand field
-    this.getLogoOnBrandBlur = function(ev, product) {
-      console.log("getLogoOnBrandBlur called");
-      var sanitizedName = product.brand.split(' ').join('').toLowerCase();
-      var logoUrl = 'https://logo.clearbit.com/' + sanitizedName + '.com?size=50&greyscale=true';
-      $http({ method: 'GET', url: logoUrl })
-        .then(
-          function success(res) { product.logo = logoUrl },
-          function error(res) { product.logo = ''}
-        );
-    
+    // Appends product to list of modifiable stock
+    this.addProduct = function() {
+      trProductsService.addProduct();
     }
 
     // Gets the background image given a logo url
     this.getAvatarImg = function(logoUrl) {
-      console.log("getAvatarImg called");
       if (logoUrl) {
         return { 'background-image': "url('" + logoUrl + "')", 'opacity': '1.0' }
       } else {
@@ -41,24 +26,14 @@ angular.module('app')
       }
     }
 
-    // Shows help dialog
-    this.showHelpDialog = function(ev) {
-      console.log("Show help dialog clicked");
-    }
-
-    // Redirects user to print page passing the products scoped variable
-    this.generatePrint = function() {
-      console.log("Generate print clicked")
-    }
-
-    // Appends product to list of modifiable stock
-    this.addProduct = function() {
-      this.products.push({name: "", brand: "", before: "", after: "", logo: ""});
-    }
-
-    // Displays or hides the little arrow that expands the footer menu
-    this.isFooterAvailable = function() {
-      if (this.products.length) { return true; } else { return false; }
+    // Gets footer style with correct colors through mdColors
+    this.getFooterStyle = function() {
+      var overlayColor = $mdColors.getThemeColor('blue-grey-900-0.8');
+      var background = 'linear-gradient(' + overlayColor + ',' + overlayColor +
+        '), url(\'../../img/east.jpg\') bottom';
+      return {
+        background: background,
+      }
     }
 
     // If there are entries on the list the header should be collapsed
@@ -76,70 +51,54 @@ angular.module('app')
       }
     }
 
-    // Gets footer style with correct colors through mdColors
-    this.getFooterStyle = function() {
-      var overlayColor = $mdColors.getThemeColor('blue-grey-900-0.8');
-      var background = 'linear-gradient(' + overlayColor + ',' + overlayColor +
-        '), url(\'../../img/east.jpg\') bottom';
-      return {
-        background: background,
+    // Redirects user to print page passing the products scoped variable
+    this.generatePrint = function() {
+      console.log("Generate print clicked")
+    }
+
+    // Displays or hides the little arrow that expands the footer menu
+    this.isFooterAvailable = function() {
+      if (this.products.length) { return true; } else { return false; }
+    }
+
+    // Stores value of product brand. It will be compared later on
+    this.onBrandFocus = function(product) {
+      focusedBrand = product.brand;
+    }
+
+    // On blurring it will send a request to logo service just in case there is need 
+    this.onBrandBlur = function(product) {
+      if (product.brand) {
+        if (product.brand !== focusedBrand) {
+          var sanitizedName = product.brand.split(' ').join('').toLowerCase();
+          trProductsService.getLogo(sanitizedName)
+            .then(function(retrievedLogo) {
+              product.logo = retrievedLogo
+            });
+        } // product.brand !== focusedBrand
+      } else { // product.brand
+        product.logo = trProductsService.defaultLogo;
       }
     }
+
+    // Removes a product from the item list
+    this.removeProduct = function(product) {
+      trProductsService.removeProduct(product);
+    }
+
+    // Shows help dialog
+    this.showHelpDialog = function(ev) {
+      $mdDialog.show({
+        controller: 'trHelpCtrl',
+        controllerAs: 'help',
+        templateUrl: 'partials/help/help',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose: true,
+        fullscreen: false
+      });
+    }
+
   });
 
 })();
-
-angular.module('app')
-.animation('.repeated-item', function() {
-  return {
-    enter : function(element, done) {
-      element.css('opacity',0);
-      jQuery(element).animate({
-        opacity: 1
-      }, done);
-
-      // optional onDone or onCancel callback
-      // function to handle any post-animation
-      // cleanup operations
-      return function(isCancelled) {
-        if(isCancelled) {
-          jQuery(element).stop();
-        }
-      }
-    },
-    leave : function(element, done) {
-      element.css('opacity', 1);
-      jQuery(element).animate({
-        opacity: 0
-      }, done);
-
-      // optional onDone or onCancel callback
-      // function to handle any post-animation
-      // cleanup operations
-      return function(isCancelled) {
-        if(isCancelled) {
-          jQuery(element).stop();
-        }
-      }
-    },
-    move : function(element, done) {
-      element.css('opacity', 0);
-      jQuery(element).animate({
-        opacity: 1
-      }, done);
-
-      // optional onDone or onCancel callback
-      // function to handle any post-animation
-      // cleanup operations
-      return function(isCancelled) {
-        if(isCancelled) {
-          jQuery(element).stop();
-        }
-      }
-    },
-
-    // you can also capture these animation events
-    addClass : function(element, className, done) {},
-    removeClass : function(element, className, done) {}
-  }
-})
