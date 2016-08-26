@@ -46,4 +46,5 @@ passport.deserializeUser(function(id, done) {
 require('./server/config/routes')(app, config);
 
 app.listen(config.port);
+console.log(process.env.IP);
 console.log("Listening on port " + config.port + "...")

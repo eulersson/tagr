@@ -8,7 +8,7 @@ angular.module('app')
     // Scoped variables
     $scope.products = [];
     $scope.footerCollapsed = false;
-    $scope.priceRegex = "/^\\d+[,\\.]\\d+$/";
+    $scope.priceRegex = "^\\d+[,\\.]\\d+$";
 
     // Removes a product from the item list
     $scope.removeProduct = function(product) {

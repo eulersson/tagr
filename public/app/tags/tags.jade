@@ -75,9 +75,6 @@ doctype html
                 div(ng-message="required") Required field.
                 div(ng-message="pattern") Example: 29,99 or 29.99
 
-            div
-              p | {{ productsItemForm.before }}
-
             md-button.md-raised.md-warn(ng-click="removeProduct(product)")
               md-icon delete
 
