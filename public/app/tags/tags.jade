@@ -53,7 +53,7 @@ doctype html
 
             md-input-container.md-block.md-accent(layout="row" layout-align="center center")
               label Brand
-              input(ng-blur = "getLogoOnBrandBlur($event, product)" ng-model="product.brand" ng-model-options="{ updateOn: 'blur'}")
+              input(ng-blur = "getLogoOnBrandBlur($event, product)" ng-model="product.brand")
 
             md-input-container.md-block.md-accent
               label Product
@@ -63,17 +63,20 @@ doctype html
 
             md-input-container.md-block.md-accent
               label Before
-              input(name="before" ng-model="product.before" ng-pattern="/^\d+[,\.]\d+$/" required)
+              input(name="before" ng-model="product.before" ng-pattern="priceRegex" required)
               div(ng-messages="productsItemForm.before.$error")
                 div(ng-message="required") Required field.
                 div(ng-message="pattern") Example: 29,99 or 29.99
 
             md-input-container.md-block.md-accent
               label After
-              input(name="after" ng-model="product.after" ng-pattern="/^\d+[,\.]\d+$/" required)
+              input(name="after" ng-model="product.after" ng-pattern="priceRegex" required)
               div(ng-messages="productsItemForm.after.$error")
                 div(ng-message="required") Required field.
                 div(ng-message="pattern") Example: 29,99 or 29.99
+
+            div
+              p | {{ productsItemForm.before }}
 
             md-button.md-raised.md-warn(ng-click="removeProduct(product)")
               md-icon delete

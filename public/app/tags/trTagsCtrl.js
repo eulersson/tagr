@@ -2,12 +2,13 @@
 "use strict";
 
 angular.module('app')
-  .controller('trTagsCtrl', function($location, $mdColors, $scope) {
+  .controller('trTagsCtrl', function($http, $location, $mdColors, $scope) {
     $scope.showMiddle = true;
 
     // Scoped variables
     $scope.products = [];
     $scope.footerCollapsed = false;
+    $scope.priceRegex = "/^\\d+[,\\.]\\d+$/";
 
     // Removes a product from the item list
     $scope.removeProduct = function(product) {
@@ -19,14 +20,25 @@ angular.module('app')
 
     // When blur event happens on the brand field
     $scope.getLogoOnBrandBlur = function(ev, product) {
-      console.dir(ev);
       console.log("getLogoOnBrandBlur called");
-      product.logo = 'http://i.imgur.com/EOyYrK6.jpg';
+      var sanitizedName = product.brand.split(' ').join('').toLowerCase();
+      var logoUrl = 'https://logo.clearbit.com/' + sanitizedName + '.com?size=50&greyscale=true';
+      $http({ method: 'GET', url: logoUrl })
+        .then(
+          function success(res) { product.logo = logoUrl },
+          function error(res) { product.logo = ''}
+        );
+    
     }
 
     // Gets the background image given a logo url
     $scope.getAvatarImg = function(logoUrl) {
-      return 'http://i.imgur.com/EOyYrK6.jpg';
+      console.log("getAvatarImg called");
+      if (logoUrl) {
+        return { 'background-image': "url('" + logoUrl + "')", 'opacity': '1.0' }
+      } else {
+        return { 'background-image': "none",  'opacity': '0.0' }
+      }
     }
 
     // Shows help dialog
