@@ -7,7 +7,8 @@ angular.module('app', ['ngAnimate', 'ngMaterial', 'ngMessages', 'ngRoute'])
     $routeProvider
       .when('/', {
         templateUrl: '/partials/tags/tags',
-        controller: 'trTagsCtrl'
+        controller: 'trTagsCtrl',
+        controllerAs: 'tags'
       })
       .when('/dashboard', {
         templateUrl: '/partials/dashboard/dashboard',

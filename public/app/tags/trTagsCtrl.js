@@ -2,24 +2,24 @@
 "use strict";
 
 angular.module('app')
-  .controller('trTagsCtrl', function($http, $location, $mdColors, $scope) {
-    $scope.showMiddle = true;
+  .controller('trTagsCtrl', function($http, $location, $mdColors, trProductsService) {
+    this.showMiddle = true;
 
     // Scoped variables
-    $scope.products = [];
-    $scope.footerCollapsed = false;
-    $scope.priceRegex = "^\\d+[,\\.]\\d+$";
+    this.products = [];
+    this.footerCollapsed = false;
+    this.priceRegex = "^\\d+[,\\.]\\d+$";
 
     // Removes a product from the item list
-    $scope.removeProduct = function(product) {
+    this.removeProduct = function(product) {
       console.log("removing " + product.name);
-      var index = $scope.products.indexOf(product);
-      $scope.products.splice(index, 1);
+      var index = this.products.indexOf(product);
+      this.products.splice(index, 1);
     }
 
 
     // When blur event happens on the brand field
-    $scope.getLogoOnBrandBlur = function(ev, product) {
+    this.getLogoOnBrandBlur = function(ev, product) {
       console.log("getLogoOnBrandBlur called");
       var sanitizedName = product.brand.split(' ').join('').toLowerCase();
       var logoUrl = 'https://logo.clearbit.com/' + sanitizedName + '.com?size=50&greyscale=true';
@@ -32,7 +32,7 @@ angular.module('app')
     }
 
     // Gets the background image given a logo url
-    $scope.getAvatarImg = function(logoUrl) {
+    this.getAvatarImg = function(logoUrl) {
       console.log("getAvatarImg called");
       if (logoUrl) {
         return { 'background-image': "url('" + logoUrl + "')", 'opacity': '1.0' }
@@ -42,32 +42,32 @@ angular.module('app')
     }
 
     // Shows help dialog
-    $scope.showHelpDialog = function(ev) {
+    this.showHelpDialog = function(ev) {
       console.log("Show help dialog clicked");
     }
 
     // Redirects user to print page passing the products scoped variable
-    $scope.generatePrint = function() {
+    this.generatePrint = function() {
       console.log("Generate print clicked")
     }
 
     // Appends product to list of modifiable stock
-    $scope.addProduct = function() {
-      $scope.products.push({name: "", brand: "", before: "", after: "", logo: ""});
+    this.addProduct = function() {
+      this.products.push({name: "", brand: "", before: "", after: "", logo: ""});
     }
 
     // Displays or hides the little arrow that expands the footer menu
-    $scope.isFooterAvailable = function() {
-      if ($scope.products.length) { return true; } else { return false; }
+    this.isFooterAvailable = function() {
+      if (this.products.length) { return true; } else { return false; }
     }
 
     // If there are entries on the list the header should be collapsed
-    $scope.getHeaderClass = function() {
-      if ($scope.products.length) { return 'small'; } else { return 'full'; }
+    this.getHeaderClass = function() {
+      if (this.products.length) { return 'small'; } else { return 'full'; }
     }
 
     // As mdColors is needed insteaf of ng-style we wrap it into a function
-    $scope.getHeaderStyle = function() {
+    this.getHeaderStyle = function() {
       var overlayColor = $mdColors.getThemeColor('blue-grey-900-0.8');
       var background = 'linear-gradient(' + overlayColor + ',' + overlayColor +
         '), url(\'../../img/east.jpg\') center';
@@ -77,7 +77,7 @@ angular.module('app')
     }
 
     // Gets footer style with correct colors through mdColors
-    $scope.getFooterStyle = function() {
+    this.getFooterStyle = function() {
       var overlayColor = $mdColors.getThemeColor('blue-grey-900-0.8');
       var background = 'linear-gradient(' + overlayColor + ',' + overlayColor +
         '), url(\'../../img/east.jpg\') bottom';

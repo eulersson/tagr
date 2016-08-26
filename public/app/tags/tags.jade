@@ -9,8 +9,8 @@ doctype html
 
   #header.animable(
     layout='row'
-    ng-class='getHeaderClass()'
-    ng-style='getHeaderStyle()'
+    ng-class='tags.getHeaderClass()'
+    ng-style='tags.getHeaderStyle()'
     flex='noshrink')
 
     div(flex)
@@ -20,22 +20,22 @@ doctype html
 
       div(layout='row' layout-align='center center' style={width: '100%'})
         md-button.md-raised.md-primary(
-          ng-click='addProduct()'
+          ng-click='tags.addProduct()'
           style={width: '50%', margin: '10px 5px 0px 0px'})
           md-icon add
         md-button.md-raised.md-accent(
-          ng-click='generatePrint()'
+          ng-click='tags.generatePrint()'
           style={width: '50%', margin: '10px 0px 0px 5px'})
           md-icon border_all
 
       div(style={width: '100%', 'margin-top': '10px'})
-        md-button(style={margin: '0px', width: '100%'} ng-click='showHelpDialog($event)')
+        md-button(style={margin: '0px', width: '100%'} ng-click='tags.showHelpDialog($event)')
           md-icon live_help
 
     div(flex)
 
   md-content.fadeable(
-    ng-show='showMiddle'
+    ng-show='tags.showMiddle'
     style={width: '100%', 'overflow-y': 'scroll'}
     md-colors="{background: 'euler-background-900'}"
     layout="row"
@@ -46,36 +46,36 @@ doctype html
     div(layout="column" layout-align="start center" style={padding: '20px'})
       form(name="productsForm")
         md-list#products(layout="column" layout-align="start end" ng-cloak)
-          md-list-item.repeated-item(ng-form="productsItemForm" ng-repeat="product in products")
+          md-list-item.repeated-item(ng-form="tags.productsItemForm" ng-repeat="product in tags.products")
             .logo-avatar(
-              ng-style="getAvatarImg(product.logo)"
+              ng-style="tags.getAvatarImg(product.logo)"
               style={width: '50px', height: '50px', 'margin-right': '20px', transform: 'translateY(-20px)'})
 
             md-input-container.md-block.md-accent(layout="row" layout-align="center center")
               label Brand
-              input(ng-blur = "getLogoOnBrandBlur($event, product)" ng-model="product.brand")
+              input(ng-blur = "tags.getLogoOnBrandBlur($event, product)" ng-model="product.brand")
 
             md-input-container.md-block.md-accent
               label Product
               input(name="product" ng-model="product.name" required)
-              div(ng-messages="productsItemForm.product.$error")
+              div(ng-messages="tags.productsItemForm.product.$error")
                 div(ng-message="required") Required field.
 
             md-input-container.md-block.md-accent
               label Before
-              input(name="before" ng-model="product.before" ng-pattern="priceRegex" required)
-              div(ng-messages="productsItemForm.before.$error")
+              input(name="before" ng-model="product.before" ng-pattern="tags.priceRegex" required)
+              div(ng-messages="tags.productsItemForm.before.$error")
                 div(ng-message="required") Required field.
                 div(ng-message="pattern") Example: 29,99 or 29.99
 
             md-input-container.md-block.md-accent
               label After
-              input(name="after" ng-model="product.after" ng-pattern="priceRegex" required)
-              div(ng-messages="productsItemForm.after.$error")
+              input(name="after" ng-model="product.after" ng-pattern="tags.priceRegex" required)
+              div(ng-messages="tags.productsItemForm.after.$error")
                 div(ng-message="required") Required field.
                 div(ng-message="pattern") Example: 29,99 or 29.99
 
-            md-button.md-raised.md-warn(ng-click="removeProduct(product)")
+            md-button.md-raised.md-warn(ng-click="tags.removeProduct(product)")
               md-icon delete
 
     div(flex)
