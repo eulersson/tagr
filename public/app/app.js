@@ -1,13 +1,17 @@
 (function() {
 "use strict";
 
-angular.module('app', ['ngAnimate', 'ngMaterial', 'ngRoute'])
+angular.module('app', ['ngAnimate', 'ngMaterial', 'ngMessages', 'ngRoute'])
   .config(function($routeProvider, $locationProvider, $mdThemingProvider) {
     $locationProvider.html5Mode(true);
     $routeProvider
       .when('/', {
         templateUrl: '/partials/tags/tags',
         controller: 'trTagsCtrl'
+      })
+      .when('/dashboard', {
+        templateUrl: '/partials/dashboard/dashboard',
+        controller: 'trDashboardCtrl'
       })
       .when('/help', {
         templateUrl: 'partials/help/help',
