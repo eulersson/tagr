@@ -32,15 +32,15 @@ angular.module('app', ['ngAnimate', 'ngMaterial', 'ngMessages', 'ngRoute'])
 
     $mdThemingProvider.setDefaultTheme('euler');
   })
-  .controller('trMainCtrl', function($scope, $http, trAuth, trIdentity) {
+  .controller('trMainCtrl', function($scope, $http, trAuthService, trIdentityService) {
     $scope.message = "This is Main Controller!";
     $scope.thepass = "lacassa";
-    $scope.identity = trIdentity;
+    $scope.identity = trIdentityService;
 
     $scope.signIn = function(username, password) {
 
       console.log("OI! " + username + ':' + password);
-      trAuth.authenticateUser(username, password)
+      trAuthService.authenticateUser(username, password)
         .then(function(success) {
           console.dir(success);
           if (success) { console.log("SO COOL!"); }

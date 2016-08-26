@@ -1,7 +1,7 @@
 (function() {
 "use strict";
 
-angular.module('app').factory('trIdentity', function() {
+angular.module('app').factory('trIdentityService', function() {
   return {
     currentUser: undefined,
     isAuthenticated: function() {

@@ -2,7 +2,7 @@
 "use strict";
 
 angular.module('app')
-  .factory('trAuth', function($http, $q, trIdentity) {
+  .factory('trAuthService', function($http, $q, trIdentityService) {
     return {
       authenticateUser: function(username, password) {
         var qu = $q.defer();
@@ -12,7 +12,7 @@ angular.module('app')
           .then(function(response) {
             console.dir(response);
             if (response.data.success) {
-              trIdentity.currentUser = response.data.user;
+              trIdentityService.currentUser = response.data.user;
               qu.resolve(true);
             } else {
               qu.resolve(false);
