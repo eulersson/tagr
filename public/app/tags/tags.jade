@@ -25,6 +25,7 @@ doctype html
           md-icon add
         md-button.md-raised.md-accent(
           ng-click='tags.generatePrint()'
+          ng-disabled='!tags.isFooterAvailable()'
           style={width: '50%', margin: '10px 0px 0px 5px'})
           md-icon border_all
 
@@ -89,6 +90,19 @@ doctype html
     layout-align='start center'
     ng-style='tags.getFooterStyle()'
     flex='none')
+
+    md-input-container(style="margin-right: 20px; margin-left: 40px")
+      label Font
+      md-select(ng-model="tags.selectedFont")
+        md-option(ng-repeat="font in tags.fonts" value="{{ font }}") {{ font }}
+
+    md-checkbox(ng-model="tags.setDefaultLogo" style="margin-right: 20px; margin-top: 18px") Set default logo
+
+    img(src="http://i.imgur.com/EOyYrK6.jpg" style="border-radius: 50%; width: 50px; height: 50px; margin-right: 20px")
+
+    md-button(ng-click="tags.logout()") Out
+
+    
 
     #collapse-footer-button(
       ng-class="tags.footerCollapsed === true ? 'collapsed' : 'expanded'"

@@ -5,7 +5,7 @@ module.exports = {
     alias: 'development',
     rootPath: path.normalize(__dirname + '/../..'),
     db: 'mongodb://localhost/tagr',
-    port: process.env.port || 3000
+    port: process.env.port || 3030
   },
   production: {
     alias: 'production',

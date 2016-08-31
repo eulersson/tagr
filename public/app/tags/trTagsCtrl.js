@@ -2,13 +2,21 @@
 "use strict";
 
 angular.module('app')
-  .controller('trTagsCtrl', function($http, $location, $mdColors, $mdDialog, trProductsService) {
+  .controller('trTagsCtrl', function($cookies, $http, $location, $mdColors, $mdDialog, trProductsService, trAuthService) {
+
+    this.logout = function() {
+      trAuthService.logoutUser();
+      $location.path('/portal');
+    }
 
     // Controller attributes
     this.footerCollapsed = false;
     this.priceRegex = "^\\d+[,\\.]\\d+$";
     this.products = trProductsService.products;
     this.showMiddle = true;
+    this.selectedFont = 'Lobster';
+    this.fonts = ['Lobster', 'Dosis'];
+    this.setDefaultLogo = false;
 
     var focusedBrand;
 
@@ -53,7 +61,10 @@ angular.module('app')
 
     // Redirects user to print page passing the products scoped variable
     this.generatePrint = function() {
-      console.log("Generate print clicked")
+      console.log("Generate print clicked");
+      trProductsService.saveProductsAsCookie();
+      $location.path('/print');
+      
     }
 
     // Displays or hides the little arrow that expands the footer menu

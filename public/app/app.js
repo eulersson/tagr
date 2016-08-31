@@ -1,25 +1,42 @@
 (function() {
 "use strict";
 
-angular.module('app', ['ngAnimate', 'ngMaterial', 'ngMessages', 'ngRoute'])
+angular.module('app', ['ngAnimate', 'ngCookies', 'ngMaterial', 'ngMessages', 'ngRoute'])
   // Module configuration
   .config(function($routeProvider, $locationProvider, $mdThemingProvider) {
+    var routeChecks = {
+      auth: function(trAuthService) {
+        return trAuthService.authorizeCurrentUserForRoute();
+      }
+    }
+
     $locationProvider.html5Mode(true);
     $routeProvider
       .when('/', {
         templateUrl: '/partials/tags/tags',
         controller: 'trTagsCtrl',
-        controllerAs: 'tags'
+        controllerAs: 'tags',
+        resolve: routeChecks
       })
       .when('/dashboard', {
         templateUrl: '/partials/dashboard/dashboard',
         controller: 'trDashboardCtrl',
-        controllerAs: 'dashboard'
+        controllerAs: 'dashboard',
+        resolve: routeChecks
       })
       .when('/print', {
         templateUrl: 'partials/print/print',
         controller: 'trPrintCtrl',
-        controllerAs: 'print'
+        controllerAs: 'print',
+        resolve: routeChecks
+      })
+      .when('/portal', {
+        templateUrl: 'partials/portal/portal',
+        controller: 'trPortalCtrl',
+        controllerAs: 'portal'
+      })
+      .otherwise({
+        redirectTo: '/'
       });
 
     $mdThemingProvider
@@ -101,6 +118,16 @@ angular.module('app', ['ngAnimate', 'ngMaterial', 'ngMessages', 'ngRoute'])
       addClass : function(element, className, done) {},
       removeClass : function(element, className, done) {}
     }
-  });
+  })
   
+  // Run
+  .run(function($location, $rootScope) {
+    $rootScope.$on('$routeChangeError', function(event, current, previous, rejection) {
+      if (rejection === 'not authorized') {
+        $location.path('/portal');
+      }
+
+    })
+
+  });
 })();

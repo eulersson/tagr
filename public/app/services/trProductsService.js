@@ -2,13 +2,17 @@
 "use strict";
 
 angular.module('app')
-  .factory('trProductsService', function($q, $http) {
+  .factory('trProductsService', function($cookies, $q, $http) {
     var factory = {
       addProduct: addProduct,
       getLogo: getLogo,
       removeProduct: removeProduct,
       defaultLogo: 'http://i.imgur.com/EOyYrK6.jpg',
+      saveProductsAsCookie: saveProductsAsCookie,
       products: []
+    }
+    if ($cookies.getObject('products')) {
+      factory.products = $cookies.getObject('products');
     }
 
     // Add an entry to the item list
@@ -43,6 +47,10 @@ angular.module('app')
     function removeProduct(product) {
       var index = factory.products.indexOf(product);
       factory.products.splice(index, 1);
+    }
+
+    function saveProductsAsCookie() {
+      $cookies.putObject('products', factory.products);
     }
 
     return factory;

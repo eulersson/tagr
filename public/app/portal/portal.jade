@@ -1,0 +1,31 @@
+#portal(md-colors="{background: 'euler-background-900'}" layout="column" layout-fill layout-align="center center")
+  #login(ng-controller='trLoginCtrl as login' ng-show="portal.current === 'login'")
+    p Don't have an account? <span md-colors="{background: 'euler-accent'}" ng-click="portal.swap(portal.current)">Sign Up</span>
+    form(name="loginForm" layout="column")
+      md-input-container.md-accent
+        label Email
+        input(type='text' ng-model='login.email')
+      md-input-container.md-accent
+        label Password
+        input(type='password' ng-model='login.password')
+      md-button(ng-click="login.login(login.email, login.password)") Login
+      p(ng-show="login.message") {{ login.message }}
+      
+
+
+  #signup(ng-controller='trSignUpCtrl as signup' ng-show="portal.current === 'signup'")
+    p Already have an accout? <span md-colors="{background: 'euler-accent'}" ng-click="portal.swap(portal.current)">Log In</span>
+    form(name="signupForm" layout="column")
+      md-input-container.md-accent
+        label Name
+        input(type='text' ng-model='signup.name')
+      md-input-container.md-accent
+        label Email
+        input(type='text' ng-model='signup.email')
+      md-input-container.md-accent
+        label Password
+        input(type='password' ng-model='login.password')
+      md-input-container.md-accent
+        label Code
+        input(type='text' ng-model='signup.code')
+      md-button(ng-click="signup.signup(signup.name, signup.email, signup.password, signup.code)") Sign Up

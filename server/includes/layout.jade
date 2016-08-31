@@ -7,5 +7,6 @@ html
     include styles
     base(href="/")
   body(ng-app="app" ng-controller="trMainCtrl" ng-cloak)
-  block main-content
-  include scripts
+    include currentUser
+    block main-content
+    include scripts

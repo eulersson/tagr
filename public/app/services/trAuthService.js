@@ -6,11 +6,10 @@ angular.module('app')
     return {
       authenticateUser: function(username, password) {
         var qu = $q.defer();
-        console.log("EI! " + username + ':' + password);
         $http
           .post('/login', {username: username, password: password})
           .then(function(response) {
-            console.dir(response);
+            // console.dir(response);
             if (response.data.success) {
               trIdentityService.currentUser = response.data.user;
               qu.resolve(true);
@@ -19,6 +18,21 @@ angular.module('app')
             }
           });
         return qu.promise;
+      },
+      logoutUser: function() {
+        var dfd = $q.defer();
+        $http.post('/logout', {logout: true}).then(function() {
+          trIdentityService.currentUser = undefined;
+          dfd.resolve();
+        });
+        return dfd.promise;
+      },
+      authorizeCurrentUserForRoute: function() {
+        if (trIdentityService.isAuthenticated()) {
+          return true;
+        } else {
+          return $q.reject('not authorized');
+        }
       }
     }
   })

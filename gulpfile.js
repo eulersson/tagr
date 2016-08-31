@@ -3,18 +3,22 @@
 var gulp   = require('gulp'),
     server = require('gulp-express');
 
-gulp.task('develop', function() {
+gulp.task('develop', ['start-server', 'refresh-client', 'restart-server']);
+
+gulp.task('start-server', function() {
   server.run(['server.js']);
+});
+
+gulp.task('refresh-client', function() {
   gulp.watch(['public/**/*'], function(event) {
-    console.log("Client side code changed, refreshing browser...");
     server.notify(event);
   });
+});
 
+gulp.task('restart-server', function() {
   gulp.watch(['server.js', 'server/**/*'], function(event) {
-    console.log("Server side code changed, restarting server...");
     server.run(['server.js']);
   });
-
 });
 
 gulp.task('serve', function() {

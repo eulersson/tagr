@@ -1,2 +1,35 @@
-div(style={width: '100%', height: '100%'} layout="column" layout-align="start center" layout-fill)
-  p Something is about to start
+.book
+  .page(style="font-family: 'Lobster'")
+    .subpage
+      .product-label(ng-repeat="product in print.products" ng-style="print.getBorderStyle($index, $last)" layout="column" flex="50")
+        //-  Logo / Name
+        div(style="background: black; color: white" layout="row" flex="25")
+          div(layout="column" layout-align="center center" flex="20")
+            img(ng-src="{{ product.logo }}" style="max-width: 50px; max-height: 50px; background: white")
+          div(layout="column" layout-align="end start" flex="80")
+            p(style="font-family: 'Roboto', sans-serif; font-weight: 400; font-size: 25px; margin: 0 0 10px 20px") {{ product.name }}
+
+        //- Old price
+        div(layout="row" flex="20" style="border-top: 2px black solid; background: white")
+          div(flex="5")
+          .label-price-before(layout="row" layout-align="center center" flex="30")
+            div(flex="66" style="font-size: 44px; text-align: right") {{ print.splitPrice(product.before)[0] }}
+            div(layout="column" layout-align="center center" flex="33")
+              div(style="margin-top: 13px" flex="40") {{ print.splitPrice(product.before)[1] }}
+              div(style="font-size: 33px; margin-top: -10px" flex="60") &euro;
+          div(flex="65")
+
+        //-  New price
+        div(layout="row" flex="55")
+          div(flex="35")
+          div(layout="row" flex="65")
+            div(flex="66" style="font-size: 120px; margin-top: -20px; text-align: right") {{ print.splitPrice(product.after)[0] }}
+            div(flex="33" style="margin-top: -15px" layout="column")
+              div(style="font-size: 42px" flex="40") {{ print.splitPrice(product.after)[1] }}
+              div(style="font-size: 85px; margin-top: -22px; margin-left: 2px" flex="60") &euro;
+
+  //- div(layout="column" style="position: fixed; bottom: 20px; right: 20px")
+  //-   md-button#print-button.md-fab.md-primary(ng-click="print.printPage()")
+  //-     md-icon local_offer
+  //-   md-button#pdf-button.md-fab.md-primary(ng-click="print.printPdf()")
+  //-     md-icon picture_as_pdf
