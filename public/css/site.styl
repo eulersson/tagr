@@ -194,17 +194,20 @@ body
  
 // Expandable footer button 
 #collapse-footer-button
-  top -70px
+  bottom 0
   cursor pointer
-  position relative
+  position fixed
+  transform translateY(0px)
   transition all cubic-bezier(0.250, 0.460, 0.450, 0.940) 600ms
   width 100%
   
   &.expanded
     opacity 1
+    transform translateY(-100px)
     
   &.collapsed
     opacity 0.5
+    transform translateY(0px)
   
   md-icon
     font-size 40px

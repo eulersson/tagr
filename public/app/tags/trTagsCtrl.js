@@ -3,30 +3,32 @@
 
 angular.module('app')
   .controller('trTagsCtrl', function($cookies, $http, $location, $mdColors, $mdDialog, trProductsService, trAuthService) {
+    var vm = this;
 
-    this.logout = function() {
+    vm.logout = function() {
       trAuthService.logoutUser();
       $location.path('/portal');
     }
 
     // Controller attributes
-    this.footerCollapsed = false;
-    this.priceRegex = "^\\d+[,\\.]\\d+$";
-    this.products = trProductsService.products;
-    this.showMiddle = true;
-    this.selectedFont = 'Lobster';
-    this.fonts = ['Lobster', 'Dosis'];
-    this.setDefaultLogo = false;
+    vm.footerCollapsed = false;
+    vm.priceRegex = "^\\d+[,\\.]\\d+$";
+    vm.products = trProductsService.products;
+    vm.showMiddle = true;
+    vm.selectedFont = 'Lobster';
+    vm.fonts = ['Lobster', 'Dosis'];
+    vm.setDefaultLogo = false;
+    vm.defaultLogoUrl = 'http://i.imgur.com/EOyYrK6.jpg';
 
-    var focusedBrand;
+    var focusedBrand, focusedDefaultLogoUrl;
 
     // Appends product to list of modifiable stock
-    this.addProduct = function() {
+    vm.addProduct = function() {
       trProductsService.addProduct();
     }
 
     // Gets the background image given a logo url
-    this.getAvatarImg = function(logoUrl) {
+    vm.getAvatarImg = function(logoUrl) {
       if (logoUrl) {
         return { 'background-image': "url('" + logoUrl + "')", 'opacity': '1.0' }
       } else {
@@ -35,7 +37,7 @@ angular.module('app')
     }
 
     // Gets footer style with correct colors through mdColors
-    this.getFooterStyle = function() {
+    vm.getFooterStyle = function() {
       var overlayColor = $mdColors.getThemeColor('blue-grey-900-0.8');
       var background = 'linear-gradient(' + overlayColor + ',' + overlayColor +
         '), url(\'../../img/east.jpg\') bottom';
@@ -45,12 +47,12 @@ angular.module('app')
     }
 
     // If there are entries on the list the header should be collapsed
-    this.getHeaderClass = function() {
-      if (this.products.length) { return 'small'; } else { return 'full'; }
+    vm.getHeaderClass = function() {
+      if (vm.products.length) { return 'small'; } else { return 'full'; }
     }
 
     // As mdColors is needed insteaf of ng-style we wrap it into a function
-    this.getHeaderStyle = function() {
+    vm.getHeaderStyle = function() {
       var overlayColor = $mdColors.getThemeColor('blue-grey-900-0.8');
       var background = 'linear-gradient(' + overlayColor + ',' + overlayColor +
         '), url(\'../../img/east.jpg\') center';
@@ -60,7 +62,7 @@ angular.module('app')
     }
 
     // Redirects user to print page passing the products scoped variable
-    this.generatePrint = function() {
+    vm.generatePrint = function() {
       console.log("Generate print clicked");
       trProductsService.saveProductsAsCookie();
       $location.path('/print');
@@ -68,17 +70,17 @@ angular.module('app')
     }
 
     // Displays or hides the little arrow that expands the footer menu
-    this.isFooterAvailable = function() {
-      if (this.products.length) { return true; } else { return false; }
+    vm.isFooterAvailable = function() {
+      if (vm.products.length) { return true; } else { return false; }
     }
 
     // Stores value of product brand. It will be compared later on
-    this.onBrandFocus = function(product) {
+    vm.onBrandFocus = function(product) {
       focusedBrand = product.brand;
     }
 
     // On blurring it will send a request to logo service just in case there is need 
-    this.onBrandBlur = function(product) {
+    vm.onBrandBlur = function(product) {
       if (product.brand) {
         if (product.brand !== focusedBrand) {
           var sanitizedName = product.brand.split(' ').join('').toLowerCase();
@@ -92,13 +94,35 @@ angular.module('app')
       }
     }
 
+    // On blurring check if the image is loadable if it is not, bring back the previous
+    vm.onDefaultLogoBlur = function() {
+      $http({
+        method: 'GET',
+        url: vm.defaultLogoUrl
+      })
+        .then(function success(res) {
+          console.log("All good");
+          console.dir(res);
+          vm.defaultLogoUrl = vm.defaultLogoUrl; 
+        }, function error(res) {
+          console.log("oh shit");
+          console.log(focusedDefaultLogoUrl);
+          vm.defaultLogoUrl = focusedDefaultLogoUrl;
+        })
+    }
+
+    // Store the current value for the default logo
+    vm.onDefaultLogoFocus = function() {
+      focusedDefaultLogoUrl = vm.defaultLogoUrl;
+    }
+
     // Removes a product from the item list
-    this.removeProduct = function(product) {
+    vm.removeProduct = function(product) {
       trProductsService.removeProduct(product);
     }
 
     // Shows help dialog
-    this.showHelpDialog = function(ev) {
+    vm.showHelpDialog = function(ev) {
       $mdDialog.show({
         controller: 'trHelpCtrl',
         controllerAs: 'help',

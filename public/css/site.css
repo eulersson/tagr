@@ -178,17 +178,20 @@ body {
  * * * * * * * * * * * * REUSABLE DIRECTIVES * * * * * * * * * * * * * * * * *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 #collapse-footer-button {
-  top: -70px;
+  bottom: 0;
   cursor: pointer;
-  position: relative;
+  position: fixed;
+  transform: translateY(0px);
   transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 600ms;
   width: 100%;
 }
 #collapse-footer-button.expanded {
   opacity: 1;
+  transform: translateY(-100px);
 }
 #collapse-footer-button.collapsed {
   opacity: 0.5;
+  transform: translateY(0px);
 }
 #collapse-footer-button md-icon {
   font-size: 40px;
