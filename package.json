@@ -4,7 +4,7 @@
   "description": "Automation tool for price tags",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "gulp",
+    "start": "node server.js",
     "postinstall": "bower install"
   },
   "engines": {
