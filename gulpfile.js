@@ -3,26 +3,26 @@
 var gulp   = require('gulp'),
     server = require('gulp-express');
 
-gulp.task('develop', ['start-server', 'refresh-client', 'restart-server']);
+gulp.task('develop', ['start-server', 'watch-client-side', 'watch-server-side']);
 
 gulp.task('start-server', function() {
   server.run(['server.js']);
 });
 
-gulp.task('refresh-client', function() {
+// Watch for changes in client-side code and refresh browser if needed
+gulp.task('watch-client-side', function() {
   gulp.watch(['public/**/*'], function(event) {
     server.notify(event);
   });
 });
 
-gulp.task('restart-server', function() {
+// Watch for canges in server-side code and restart server if needed
+gulp.task('watch-server-side', function() {
   gulp.watch(['server.js', 'server/**/*'], function(event) {
     server.run(['server.js']);
   });
 });
 
-gulp.task('serve', function() {
-  server.run(['server.js'], undefined, false);
+gulp.task('default', function() {
+  console.log("If you want to spin the server run: node server.js")
 });
-
-gulp.task('default', ['serve']);
