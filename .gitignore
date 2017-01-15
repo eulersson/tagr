@@ -1,4 +1,5 @@
 data/
 node_modules/
 public/css/*.css
+npm-debug.log
 public/vendor/
