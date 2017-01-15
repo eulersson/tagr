@@ -1,3 +1,5 @@
+#!/usr/bin/env nodejs
+
 var express       = require('express'),
     mongoose      = require('mongoose'),
     passport      = require('passport'),
