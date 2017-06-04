@@ -36,11 +36,11 @@ module.exports = function(config) {
         hashed_pwd: hash1
       });
       var salt2 = createSalt();
-      var hash2 = hashPwd(salt2, 'alealejandro');
+      var hash2 = hashPwd(salt2, 'demo');
       User.create({
-        firstName: 'Alejandro',
-        lastName: 'Gomez',
-        userName: 'agomez',
+        firstName: 'Demo',
+        lastName: 'Test',
+        userName: 'demo',
         salt: salt2,
         hashed_pwd: hash2
       });
