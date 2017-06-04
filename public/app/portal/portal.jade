@@ -1,4 +1,5 @@
 #portal(md-colors="{background: 'euler-background-900'}" layout="column" layout-fill layout-align="center center")
+  p Try with email: <span md-colors="{background: 'euler-accent'}">demo</span> and password: <span md-colors="{background: 'euler-accent'}">demo</span>
   #login(ng-controller='trLoginCtrl as login' ng-show="portal.current === 'login'")
     p Don't have an account? <span md-colors="{background: 'euler-accent'}" ng-click="portal.swap(portal.current)">Sign Up</span>
     form(name="loginForm" layout="column")

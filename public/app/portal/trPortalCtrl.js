@@ -13,8 +13,8 @@ angular.module('app').controller('trPortalCtrl', function() {
 
 angular.module('app').controller('trLoginCtrl', function($location, $mdToast, trAuthService, trIdentityService) {
   var vm = this;
-  vm.email = "blanquer.ramon@gmail.com";
-  vm.password = '';
+  vm.email = 'demo';
+  vm.password = 'demo';
 
   vm.login = function(username, password) {
     trAuthService.authenticateUser(username, password).then(function(success) {
