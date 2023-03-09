@@ -11,7 +11,7 @@ angular.module('app').factory('trIdentityService', function($window) {
   return {
     currentUser: currentUser,
     isAuthenticated: function() {
-      return !!this.currentUser;
+      return true;
     }
   }
 });
