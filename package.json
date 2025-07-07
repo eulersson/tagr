@@ -8,8 +8,8 @@
     "postinstall": "bower install"
   },
   "engines": {
-    "node": "4.4.x",
-    "npm": "2.15.x"
+    "node": "18.x",
+    "npm": "9.x"
   },
   "keywords": [
     "price",
