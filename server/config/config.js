@@ -10,13 +10,7 @@ module.exports = {
   production: {
     alias: 'production',
     rootPath: path.normalize(__dirname + '/../..'),
-    db: 'mongodb://localhost/tagr',
+    db: process.env.DATABASE_URL || 'mongodb://localhost/tagr',
     port: process.env.PORT || 8081
   },
-  heroku: {
-    alias: 'heroku',
-    rootPath: path.normalize(__dirname + '/../..'),
-    db: 'mongodb://rblanquer:eulersson@ds063725.mlab.com:63725/heroku_3b1zpcq7',
-    port: process.env.PORT || 80
-  }
 }
