@@ -1,8 +1,3 @@
-<div align="center">
-  <picture>
-    <img alt="banner" src="banner.png" />
-  </picture>
-  <h1>tagr</h1>
-</div>
+![Tagr Banner](banner.png)
 
 Generate printable sales tags for your clothing retail store.
