@@ -1,5 +1,8 @@
-# Tagr
+<div align="center">
+  <picture>
+    <img alt="banner" src="banner.png" />
+  </picture>
+  <h1>tagr</h1>
+</div>
 
-Information coming soon. Deploys to https://tagr.onrender.com/ at the moment.
-
-![taggr](banner.png)
+Generate printable sales tags for your clothing retail store.
